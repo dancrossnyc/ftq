@@ -95,8 +95,12 @@ static void *ftq_thread(void *arg)
 	unsigned long total_count = 0;
 
 	/* core # is thread # for some OSs (not Akaros pth 2LS) */
-	if (pin_threads)
-		wireme(thread_num);
+	if (pin_threads) {
+		if (wireme(thread_num)) {
+			fprintf(stderr, "Wiring to core %d failed; skipping this core\n", thread_num);
+			return 0;
+		}
+	}
 
 	if (set_realtime) {
 		int cores = get_num_cores();

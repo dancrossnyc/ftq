@@ -94,7 +94,7 @@ int wireme(int core)
 		exit(1);
 	}
 	CPU_FREE(set);
-	return 0;
+	return ret;
 }
 
 double compute_ticksperns(void)
